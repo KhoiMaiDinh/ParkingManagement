@@ -1,0 +1,39 @@
+Vehicle Edit
+---
+tags:
+    - Vehicle
+parameters:
+    - name: body
+      description: The body should contain the vehicle data
+      in: body
+      required: true
+      schema:
+          type: object
+          required:
+              - "id"
+              - "owner_name"
+              - "license_plate"
+              - "uid"
+              - "exp_date"
+          properties:
+              id:
+                  type: "number"
+                  example: 1
+              owner_name:
+                  type: "string"
+                  example: "Trần Phước Anh Quốcc"
+              license_plate:
+                  type: "string"
+                  example: "29AA-99999"
+              uid:
+                  type: "number"
+                  example: 00001234
+              exp_date:
+                  type: "iso - date time"
+                  example: "2024-05-15T18:43:02"
+responses:
+    201:
+        description: When a vehicle successfully updated
+
+    400:
+        description: Fails to Update due to bad request data

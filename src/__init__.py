@@ -2,9 +2,10 @@ from flask.json import jsonify
 from src.constants.http_status_codes import HTTP_404_NOT_FOUND, HTTP_500_INTERNAL_SERVER_ERROR
 from flask import Flask, config, redirect
 import os
-from src.auth import auth
-from src.bookmarks import bookmarks
-from src.database import db, Bookmark
+from src.blue_prints.auth import auth
+from src.blue_prints.car_parking import car_parking
+from src.blue_prints.in_out import in_out
+from src.database import db
 from flask_jwt_extended import JWTManager
 from flasgger import Swagger, swag_from
 from src.config.swagger import template, swagger_config
@@ -23,7 +24,7 @@ def create_app(test_config=None):
 
 
             SWAGGER={
-                'title': "Bookmarks API",
+                'title': "CarParking     API",
                 'uiversion': 3
             }
         )
@@ -35,19 +36,20 @@ def create_app(test_config=None):
 
     JWTManager(app)
     app.register_blueprint(auth)
-    app.register_blueprint(bookmarks)
+    app.register_blueprint(car_parking)
+    app.register_blueprint(in_out)
 
     Swagger(app, config=swagger_config, template=template)
 
-    @app.get('/<short_url>')
-    @swag_from('./docs/short_url.yaml')
-    def redirect_to_url(short_url):
-        bookmark = Bookmark.query.filter_by(short_url=short_url).first_or_404()
+    # @app.get('/<short_url>')
+    # @swag_from('./docs/short_url.yaml')
+    # def redirect_to_url(short_url):
+    #     bookmark = Bookmark.query.filter_by(short_url=short_url).first_or_404()
 
-        if bookmark:
-            bookmark.visits = bookmark.visits+1
-            db.session.commit()
-            return redirect(bookmark.url)
+    #     if bookmark:
+    #         bookmark.visits = bookmark.visits+1
+    #         db.session.commit()
+    #         return redirect(bookmark.url)
 
     @app.errorhandler(HTTP_404_NOT_FOUND)
     def handle_404(e):

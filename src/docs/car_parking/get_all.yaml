@@ -1,0 +1,7 @@
+Get Vehicle List
+---
+tags:
+    - Vehicle
+responses:
+    200:
+        description: When successfully receive vehicles
