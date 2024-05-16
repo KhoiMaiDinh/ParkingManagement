@@ -22,8 +22,8 @@ class User(db.Model):
         return 'User>>> {self.email}'
     
 class VehicleEnum(str, enum.Enum):
-    CAR = "car"
-    MTB = "motorbike"
+    CAR = "CAR"
+    MOTORBIKE = "MOTORBIKE"
     
 class Card(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -44,8 +44,8 @@ class Card(db.Model):
         return 'Vehicle>>> {self.license_plate}'
     
 class IOEnum(str, enum.Enum):
-    IN = "in"
-    OUT = "out"
+    IN = "IN"
+    OUT = "OUT"
     
 
 class IOHistory(db.Model):
