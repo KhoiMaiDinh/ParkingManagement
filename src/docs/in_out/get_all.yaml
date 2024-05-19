@@ -1,0 +1,10 @@
+Delete All IO Histories
+---
+tags:
+    - IOHistory
+responses:
+    200:
+        description: When successfully receive the IO histories
+
+    400:
+        description: Fails to receive the IO histories

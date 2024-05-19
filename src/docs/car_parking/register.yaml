@@ -23,10 +23,10 @@ parameters:
                   example: "29AA-99999"
               uid:
                   type: "number"
-                  example: 00001234
+                  example: "00001234"
               exp_date:
                   type: "iso - date time"
-                  example: 2024-05-15T18:43:02
+                  example: "2024-05-15T18:43:02"
 responses:
     201:
         description: When a vehicle successfully registered

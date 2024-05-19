@@ -41,13 +41,13 @@ def get_vehicles():
 def register_new_vehicle():
     # try:
     owner_name = request.json['owner_name']
-    register_by = request.json['register_by']
     license_plate = request.json['license_plate']
     uid = request.json['uid']
     exp_date = request.json['exp_date']
+    vehicle_type = request.json['vehicle_type']
     exp_date_transformed = datetime.fromisoformat(exp_date)
     
-    vehicle = Card(owner_name=owner_name, license_plate=license_plate, uid=uid, exp_date=exp_date_transformed)
+    vehicle = Card(owner_name=owner_name, license_plate=license_plate, uid=uid, exp_date=exp_date_transformed, vehicle_type=vehicle_type)
     db.session.add(vehicle)
     db.session.commit()
     return jsonify({
@@ -62,18 +62,18 @@ def register_new_vehicle():
 def edit_vehicle():
     id = request.json['id']
     owner_name = request.json['owner_name']
-    register_by = request.json['register_by']
     license_plate = request.json['license_plate']
     uid = request.json['uid']
     exp_date = request.json['exp_date']
+    vehicle_type = request.json['vehicle_type']
     exp_date_transformed = datetime.fromisoformat(exp_date)
     
     vehicle = Card.query.filter_by(id=id).first()
     vehicle.owner_name = owner_name
-    vehicle.register_by = register_by
     vehicle.license_plate = license_plate
     vehicle.uid = uid
     vehicle.exp_date = exp_date_transformed
+    vehicle.vehicle_type = vehicle_type
     # db.session.add(vehicle)
     try:
         # Commit the changes

@@ -1,0 +1,16 @@
+Get IO Histories by Card UID
+---
+tags:
+    - IOHistory
+parameters:
+    - in: path
+      name: id
+      type: string
+      required: true
+      description: The UID to get IO.
+responses:
+    200:
+        description: When successfully receive the IO histories
+
+    400:
+        description: Fails to receive the IO histories

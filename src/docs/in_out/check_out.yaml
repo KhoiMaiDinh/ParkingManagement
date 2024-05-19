@@ -1,0 +1,23 @@
+Check In
+---
+tags:
+    - IOHistory
+consumes:
+    - multipart/form-data
+parameters:
+    - in: formData
+      name: image
+      type: file
+      required: true
+      description: The image to upload.
+    - in: formData
+      name: uid
+      type: string
+      required: false
+      description: UID of the card.
+responses:
+    200:
+        description: When a successfully check out
+
+    400:
+        description: Fails to Check out
