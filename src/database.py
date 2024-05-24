@@ -25,12 +25,17 @@ class VehicleEnum(str, enum.Enum):
     CAR = "CAR"
     MOTORBIKE = "MOTORBIKE"
     
+class CardTypeEnum(str, enum.Enum):
+    MONTH="MONTH",
+    DAY="MONTH"
+    
 class Card(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    owner_name = db.Column(db.String(80), unique=True, nullable=True)
+    owner_name = db.Column(db.String(80), nullable=True)
+    card_type = db.Column(db.Enum(CardTypeEnum))
     vehicle_type = db.Column(db.Enum(VehicleEnum))
     license_plate = db.Column(db.String(10), unique=True, nullable=True)
-    uid = db.Column(db.Integer, unique=True, nullable=False)
+    uid = db.Column(db.String(10), unique=True, nullable=False)
     exp_date = db.Column(db.DateTime, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime, onupdate=datetime.now())
@@ -50,9 +55,10 @@ class IOEnum(str, enum.Enum):
 
 class IOHistory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    uid = db.Column(db.Integer, nullable=True)
+    uid = db.Column(db.String(10), nullable=True)
     type = db.Column(db.Enum(IOEnum))
     img_url = db.Column(db.Text, nullable=False)
+    crop_url = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now())
     
     def toDict(self):
@@ -60,31 +66,3 @@ class IOHistory(db.Model):
 
     def __repr__(self) -> str:
         return 'IOHistory>>> {self.vehicle_id}'
-# class Bookmark(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     body = db.Column(db.Text, nullable=True)
-#     url = db.Column(db.Text, nullable=False)
-#     short_url = db.Column(db.String(3), nullable=True)
-#     visits = db.Column(db.Integer, default=0)
-#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-#     created_at = db.Column(db.DateTime, default=datetime.now())
-#     updated_at = db.Column(db.DateTime, onupdate=datetime.now())
-
-#     def generate_short_characters(self):
-#         characters = string.digits+string.ascii_letters
-#         picked_chars = ''.join(random.choices(characters, k=3))
-
-#         link = self.query.filter_by(short_url=picked_chars).first()
-
-#         if link:
-#             self.generate_short_characters()
-#         else:
-#             return picked_chars
-
-#     def __init__(self, **kwargs):
-#         super().__init__(**kwargs)
-
-#         self.short_url = self.generate_short_characters()
-
-#     def __repr__(self) -> str:
-#         return 'Boomark>>> {self.url}'

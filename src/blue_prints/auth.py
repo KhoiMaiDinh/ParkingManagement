@@ -15,6 +15,7 @@ auth = Blueprint("auth", __name__, url_prefix="/api/v1/auth")
 def register():
     email = request.json['email']
     password = request.json['password']
+    username = request.json['username']
 
     if len(password) < 6:
         return jsonify({'error': "Password is too short"}), HTTP_400_BAD_REQUEST
@@ -27,15 +28,13 @@ def register():
 
     pwd_hash = generate_password_hash(password)
 
-    user = User(email=email, password=pwd_hash)
+    user = User(email=email, password=pwd_hash, username=username)
     db.session.add(user)
     db.session.commit()
 
     return jsonify({
         'message': "User created",
-        'user': {
-            "email": email
-        }
+        'user': user.toDict()
 
     }), HTTP_201_CREATED
 
@@ -56,11 +55,9 @@ def login():
             access = create_access_token(identity=user.id)
 
             return jsonify({
-                'user': {
-                    'refresh': refresh,
-                    'access': access,
-                    'email': user.email
-                }
+                'refresh': refresh,
+                'access': access,
+                'user': user.toDict()
 
             }), HTTP_200_OK
 

@@ -9,11 +9,13 @@ from src.database import db
 from flask_jwt_extended import JWTManager
 from flasgger import Swagger, swag_from
 from src.config.swagger import template, swagger_config
+from flask_cors import CORS
 
 
 def create_app(test_config=None):
 
     app = Flask(__name__, instance_relative_config=True)
+    CORS(app)
 
     if test_config is None:
         app.config.from_mapping(

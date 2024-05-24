@@ -1,7 +1,7 @@
 Vehicle Registration
 ---
 tags:
-    - Vehicle
+    - Card
 parameters:
     - name: body
       description: The body should contain the vehicle Registration data
@@ -22,8 +22,8 @@ parameters:
                   type: "string"
                   example: "29AA-99999"
               uid:
-                  type: "number"
-                  example: "00001234"
+                  type: "string"
+                  example: "0001294653"
               exp_date:
                   type: "iso - date time"
                   example: "2024-05-15T18:43:02"

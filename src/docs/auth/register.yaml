@@ -12,10 +12,14 @@ parameters:
           required:
               - "email"
               - "password"
+              - "username"
           properties:
               email:
                   type: "email"
                   example: "crycetruly@gmail.com"
+              username:
+                  type: "string"
+                  example: "Tran Phuoc Anh Quoc"
               password:
                   type: "string"
                   format: password

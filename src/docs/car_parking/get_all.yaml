@@ -1,7 +1,7 @@
 Get Vehicle List
 ---
 tags:
-    - Vehicle
+    - Card
 responses:
     200:
         description: When successfully receive vehicles
