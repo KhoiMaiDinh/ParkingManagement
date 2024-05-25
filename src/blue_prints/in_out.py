@@ -3,7 +3,7 @@ from flask import Blueprint, request
 from flask.json import jsonify
 import validators
 from flask_jwt_extended import get_jwt_identity, jwt_required
-from src.database import Card, IOHistory, IOEnum, db
+from src.database import Card, IOHistory, IOEnum, CardTypeEnum, db
 from flasgger import swag_from
 from src.plate_detector.detector import Model, model
 import pickle
@@ -297,8 +297,18 @@ def getAllIO():
 
     # Iterate through the IOlist and extract the data into the format of array of lists
     for item in IOlist:
-        io_item = item.toDict()
-        IODist.append(io_item)
+        card = Card.query.filter_by(uid=item.uid).first()
+        if card is None: continue
+        IODist.append({
+            "id": item.id,
+            "uid": item.uid,
+            "card_type": card.card_type,
+            "vehicle_type": card.vehicle_type,
+            "img_url": item.img_url,
+            "crop_url": item.crop_url,
+            "created_at": item.created_at,
+            "type": item.type
+        })
     return jsonify({
         'io_list': IODist
     }), HTTP_200_OK

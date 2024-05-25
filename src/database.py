@@ -27,7 +27,7 @@ class VehicleEnum(str, enum.Enum):
     
 class CardTypeEnum(str, enum.Enum):
     MONTH="MONTH",
-    DAY="MONTH"
+    DAY="DAY"
     
 class Card(db.Model):
     id = db.Column(db.Integer, primary_key=True)

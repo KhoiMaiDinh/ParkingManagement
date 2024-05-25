@@ -1,6 +1,6 @@
 FROM python:3.11-slim-bullseye
 ENV FLASK_APP=src \
-    SQLALCHEMY_DB_URI=postgres+psycopg2://default:W7RcAkO9ZbmY@ep-solitary-paper-a16sp7x5.ap-southeast-1.aws.neon.tech:5432/verceldb?sslmode=require \
+    SQLALCHEMY_DB_URI=postgresql+psycopg2://default:endpoint=ep-solitary-paper-a16sp7x5;W7RcAkO9ZbmY@ep-solitary-paper-a16sp7x5.ap-southeast-1.aws.neon.tech:5432/verceldb?sslmode=require \
     JWT_SECRET_KEY='JWT_SECRET_KEY' \
     CLOUDINARY_URL=cloudinary://357134227668635:n9zKXiUhV6qM9KiUdK6nzUVeOrw@dujstsjog
 

@@ -35,6 +35,18 @@ def get_vehicles():
         'cards': cardsDict
 
     }), HTTP_200_OK
+    
+@car_parking.delete("/")
+# @swag_from('../docs/car_parking/get_all.yaml')
+# @jwt_required()
+def delete_cards():
+    try:
+        num_rows_deleted = db.session.query(Card).delete()
+        db.session.commit()
+    except:
+        db.session.rollback()
+    
+    return jsonify({'message': 'All card deleted'})
 
 @car_parking.post("/")
 @swag_from('../docs/car_parking/register.yaml')
@@ -64,6 +76,30 @@ def register_new_vehicle():
     
     
     card = Card(owner_name=owner_name, license_plate=license_plate, uid=uid, exp_date=exp_date_transformed, vehicle_type=vehicle_type, card_type = card_type)
+    db.session.add(card)
+    db.session.commit()
+    return jsonify({
+        'card': card.toDict()
+
+    }), HTTP_201_CREATED
+    
+@car_parking.post("/guess")
+@swag_from('../docs/car_parking/register.yaml')
+# @jwt_required()
+def register_new_guess_card():
+    uid = request.json['uid']
+    vehicle_type = request.json['vehicle_type']
+    card_type = request.json['card_type']
+    
+    check_card = Card.query.filter(uid==uid).first()
+    if check_card and check_card.uid == uid:
+        return jsonify({
+        'message': "card with same UID already registered"
+
+    }), HTTP_409_CONFLICT
+    
+    
+    card = Card(uid=uid, vehicle_type=vehicle_type, card_type=card_type)
     db.session.add(card)
     db.session.commit()
     return jsonify({
