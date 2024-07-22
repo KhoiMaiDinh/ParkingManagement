@@ -1,4 +1,5 @@
 in # parking_management-api
+![Poster](https://github.com/KhoiMaiDinh/ParkingManagement/blob/main/prj_7.png)
 ## Installation
 
 To install the necessary dependencies for this project, follow these steps:
